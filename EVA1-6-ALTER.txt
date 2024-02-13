@@ -1,0 +1,124 @@
+MySQL Shell 8.0.35
+
+Copyright (c) 2016, 2023, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect -mc@root-localhost
+\connect -mc@root-localhost: unknown option -m
+\connect [--mx|--mysqlx|--mc|--mysql] [--ssh <sshuri>] <URI>
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ************
+Save password for 'root@localhost'? [Y]es/[N]o/Ne[v]er (default No): N
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.35 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > desc personal;
+ERROR: 1046 (3D000): No database selected
+ MySQL  localhost:3306 ssl  SQL > use tbd_1
+Default schema set to `tbd_1`.
+Fetching global names, object names from `tbd_1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd_1  SQL > desc personal;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int         | NO   | PRI | NULL    | auto_increment |
+| nombre | varchar(50) | NO   |     | NULL    |                |
+| edad   | int         | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+3 rows in set (0.0075 sec)
+ MySQL  localhost:3306 ssl  tbd_1  SQL > alter table personal
+                                      -> add ap_paterno varchar(50)
+                                      -> after nombre;
+Query OK, 0 rows affected (0.0981 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_1  SQL > desc personal;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| nombre     | varchar(50) | NO   |     | NULL    |                |
+| ap_paterno | varchar(50) | YES  |     | NULL    |                |
+| edad       | int         | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  tbd_1  SQL > alter table personal
+                                      -> add ap_materno varchar(50)
+                                      -> after ap_paterno;
+Query OK, 0 rows affected (0.0600 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_1  SQL > desc personal;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| nombre     | varchar(50) | NO   |     | NULL    |                |
+| ap_paterno | varchar(50) | YES  |     | NULL    |                |
+| ap_materno | varchar(50) | YES  |     | NULL    |                |
+| edad       | int         | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  tbd_1  SQL > alter table personal
+                                      -> change nombre nombre
+                                      -> varchar(50) not null;
+Query OK, 0 rows affected (0.0246 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_1  SQL > desc personal;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| nombre     | varchar(50) | NO   |     | NULL    |                |
+| ap_paterno | varchar(50) | YES  |     | NULL    |                |
+| ap_materno | varchar(50) | YES  |     | NULL    |                |
+| edad       | int         | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  tbd_1  SQL > alter table personal change ap_paterno ap_paterno varchar(50) not null;
+ERROR: 1138 (22004): Invalid use of NULL value
+ MySQL  localhost:3306 ssl  tbd_1  SQL > desc personal;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| nombre     | varchar(50) | NO   |     | NULL    |                |
+| ap_paterno | varchar(50) | YES  |     | NULL    |                |
+| ap_materno | varchar(50) | YES  |     | NULL    |                |
+| edad       | int         | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  tbd_1  SQL > alter table personal
+                                      -> change ap_paterno ap_paterno
+                                      -> varchar(50) not null;
+ERROR: 1138 (22004): Invalid use of NULL value
+ MySQL  localhost:3306 ssl  tbd_1  SQL > select * from personal
+                                      -> ;
++----+--------+------------+------------+------+
+| id | nombre | ap_paterno | ap_materno | edad |
++----+--------+------------+------------+------+
+|  1 | prueba | NULL       | NULL       |   10 |
++----+--------+------------+------------+------+
+1 row in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  tbd_1  SQL > DEL
+DELETE     DELIMITER
+ MySQL  localhost:3306 ssl  tbd_1  SQL > DELETE FROM personal;
+Query OK, 1 row affected (0.0151 sec)
+ MySQL  localhost:3306 ssl  tbd_1  SQL > select * from personal ;
+Empty set (0.0005 sec)
+ MySQL  localhost:3306 ssl  tbd_1  SQL > alter table personal change ap_paterno ap_paterno varchar(50) not null;
+Query OK, 0 rows affected (0.2232 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_1  SQL > alter table personal change ap_materno ap_materno varchar(50) not null;
+Query OK, 0 rows affected (0.1454 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_1  SQL >
