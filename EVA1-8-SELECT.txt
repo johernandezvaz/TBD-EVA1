@@ -1,0 +1,534 @@
+MySQL Shell 8.0.35
+
+Copyright (c) 2016, 2023, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ************
+Save password for 'root@localhost'? [Y]es/[N]o/Ne[v]er (default No): N
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 9
+Server version: 8.0.35 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use agencia
+Default schema set to `agencia`.
+Fetching global names, object names from `agencia` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from actor limit 10;
++----------+------------+--------------+---------------------+
+| actor_id | first_name | last_name    | last_update         |
++----------+------------+--------------+---------------------+
+|        1 | PENELOPE   | GUINESS      | 2006-02-15 04:34:33 |
+|        2 | NICK       | WAHLBERG     | 2006-02-15 04:34:33 |
+|        3 | ED         | CHASE        | 2006-02-15 04:34:33 |
+|        4 | JENNIFER   | DAVIS        | 2006-02-15 04:34:33 |
+|        5 | JOHNNY     | LOLLOBRIGIDA | 2006-02-15 04:34:33 |
+|        6 | BETTE      | NICHOLSON    | 2006-02-15 04:34:33 |
+|        7 | GRACE      | MOSTEL       | 2006-02-15 04:34:33 |
+|        8 | MATTHEW    | JOHANSSON    | 2006-02-15 04:34:33 |
+|        9 | JOE        | SWANK        | 2006-02-15 04:34:33 |
+|       10 | CHRISTIAN  | GABLE        | 2006-02-15 04:34:33 |
++----------+------------+--------------+---------------------+
+10 rows in set (0.0195 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > select first_name, last_name from actor limit 10;
++------------+--------------+
+| first_name | last_name    |
++------------+--------------+
+| PENELOPE   | GUINESS      |
+| NICK       | WAHLBERG     |
+| ED         | CHASE        |
+| JENNIFER   | DAVIS        |
+| JOHNNY     | LOLLOBRIGIDA |
+| BETTE      | NICHOLSON    |
+| GRACE      | MOSTEL       |
+| MATTHEW    | JOHANSSON    |
+| JOE        | SWANK        |
+| CHRISTIAN  | GABLE        |
++------------+--------------+
+10 rows in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > desc actor;
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type              | Null | Key | Default           | Extra                                         |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| actor_id    | smallint unsigned | NO   | PRI | NULL              | auto_increment                                |
+| first_name  | varchar(45)       | NO   |     | NULL              |                                               |
+| last_name   | varchar(45)       | NO   | MUL | NULL              |                                               |
+| last_update | timestamp         | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+4 rows in set (0.0021 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from actor order by last_name limit 20;
++----------+-------------+-----------+---------------------+
+| actor_id | first_name  | last_name | last_update         |
++----------+-------------+-----------+---------------------+
+|       58 | CHRISTIAN   | AKROYD    | 2006-02-15 04:34:33 |
+|      182 | DEBBIE      | AKROYD    | 2006-02-15 04:34:33 |
+|       92 | KIRSTEN     | AKROYD    | 2006-02-15 04:34:33 |
+|      194 | MERYL       | ALLEN     | 2006-02-15 04:34:33 |
+|      145 | KIM         | ALLEN     | 2006-02-15 04:34:33 |
+|      118 | CUBA        | ALLEN     | 2006-02-15 04:34:33 |
+|       76 | ANGELINA    | ASTAIRE   | 2006-02-15 04:34:33 |
+|      112 | RUSSELL     | BACALL    | 2006-02-15 04:34:33 |
+|       67 | JESSICA     | BAILEY    | 2006-02-15 04:34:33 |
+|      190 | AUDREY      | BAILEY    | 2006-02-15 04:34:33 |
+|      115 | HARRISON    | BALE      | 2006-02-15 04:34:33 |
+|      187 | RENEE       | BALL      | 2006-02-15 04:34:33 |
+|       47 | JULIA       | BARRYMORE | 2006-02-15 04:34:33 |
+|      158 | VIVIEN      | BASINGER  | 2006-02-15 04:34:33 |
+|      124 | SCARLETT    | BENING    | 2006-02-15 04:34:33 |
+|      174 | MICHAEL     | BENING    | 2006-02-15 04:34:33 |
+|       14 | VIVIEN      | BERGEN    | 2006-02-15 04:34:33 |
+|      121 | LIZA        | BERGMAN   | 2006-02-15 04:34:33 |
+|       91 | CHRISTOPHER | BERRY     | 2006-02-15 04:34:33 |
+|       12 | KARL        | BERRY     | 2006-02-15 04:34:33 |
++----------+-------------+-----------+---------------------+
+20 rows in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from actor order by last_name asc limit 20;
++----------+-------------+-----------+---------------------+
+| actor_id | first_name  | last_name | last_update         |
++----------+-------------+-----------+---------------------+
+|       58 | CHRISTIAN   | AKROYD    | 2006-02-15 04:34:33 |
+|      182 | DEBBIE      | AKROYD    | 2006-02-15 04:34:33 |
+|       92 | KIRSTEN     | AKROYD    | 2006-02-15 04:34:33 |
+|      194 | MERYL       | ALLEN     | 2006-02-15 04:34:33 |
+|      145 | KIM         | ALLEN     | 2006-02-15 04:34:33 |
+|      118 | CUBA        | ALLEN     | 2006-02-15 04:34:33 |
+|       76 | ANGELINA    | ASTAIRE   | 2006-02-15 04:34:33 |
+|      112 | RUSSELL     | BACALL    | 2006-02-15 04:34:33 |
+|       67 | JESSICA     | BAILEY    | 2006-02-15 04:34:33 |
+|      190 | AUDREY      | BAILEY    | 2006-02-15 04:34:33 |
+|      115 | HARRISON    | BALE      | 2006-02-15 04:34:33 |
+|      187 | RENEE       | BALL      | 2006-02-15 04:34:33 |
+|       47 | JULIA       | BARRYMORE | 2006-02-15 04:34:33 |
+|      158 | VIVIEN      | BASINGER  | 2006-02-15 04:34:33 |
+|      124 | SCARLETT    | BENING    | 2006-02-15 04:34:33 |
+|      174 | MICHAEL     | BENING    | 2006-02-15 04:34:33 |
+|       14 | VIVIEN      | BERGEN    | 2006-02-15 04:34:33 |
+|      121 | LIZA        | BERGMAN   | 2006-02-15 04:34:33 |
+|       91 | CHRISTOPHER | BERRY     | 2006-02-15 04:34:33 |
+|       12 | KARL        | BERRY     | 2006-02-15 04:34:33 |
++----------+-------------+-----------+---------------------+
+20 rows in set (0.0036 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from actor order by last_name desc limit 20;
++----------+-------------+-------------+---------------------+
+| actor_id | first_name  | last_name   | last_update         |
++----------+-------------+-------------+---------------------+
+|      111 | CAMERON     | ZELLWEGER   | 2006-02-15 04:34:33 |
+|      186 | JULIA       | ZELLWEGER   | 2006-02-15 04:34:33 |
+|       85 | MINNIE      | ZELLWEGER   | 2006-02-15 04:34:33 |
+|       63 | CAMERON     | WRAY        | 2006-02-15 04:34:33 |
+|      156 | FAY         | WOOD        | 2006-02-15 04:34:33 |
+|       13 | UMA         | WOOD        | 2006-02-15 04:34:33 |
+|      144 | ANGELA      | WITHERSPOON | 2006-02-15 04:34:33 |
+|       68 | RIP         | WINSLET     | 2006-02-15 04:34:33 |
+|      147 | FAY         | WINSLET     | 2006-02-15 04:34:33 |
+|      168 | WILL        | WILSON      | 2006-02-15 04:34:33 |
+|      164 | HUMPHREY    | WILLIS      | 2006-02-15 04:34:33 |
+|       96 | GENE        | WILLIS      | 2006-02-15 04:34:33 |
+|       83 | BEN         | WILLIS      | 2006-02-15 04:34:33 |
+|      137 | MORGAN      | WILLIAMS    | 2006-02-15 04:34:33 |
+|       72 | SEAN        | WILLIAMS    | 2006-02-15 04:34:33 |
+|      172 | GROUCHO     | WILLIAMS    | 2006-02-15 04:34:33 |
+|      197 | REESE       | WEST        | 2006-02-15 04:34:33 |
+|      163 | CHRISTOPHER | WEST        | 2006-02-15 04:34:33 |
+|       29 | ALEC        | WAYNE       | 2006-02-15 04:34:33 |
+|      196 | BELA        | WALKEN      | 2006-02-15 04:34:33 |
++----------+-------------+-------------+---------------------+
+20 rows in set (0.0010 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > select last_name from actor;
++--------------+
+| last_name    |
++--------------+
+| AKROYD       |
+| AKROYD       |
+| AKROYD       |
+| ALLEN        |
+| ALLEN        |
+| ALLEN        |
+| ASTAIRE      |
+| BACALL       |
+| BAILEY       |
+| BAILEY       |
+| BALE         |
+| BALL         |
+| BARRYMORE    |
+| BASINGER     |
+| BENING       |
+| BENING       |
+| BERGEN       |
+| BERGMAN      |
+| BERRY        |
+| BERRY        |
+| BERRY        |
+| BIRCH        |
+| BLOOM        |
+| BOLGER       |
+| BOLGER       |
+| BRIDGES      |
+| BRODY        |
+| BRODY        |
+| BULLOCK      |
+| CAGE         |
+| CAGE         |
+| CARREY       |
+| CHAPLIN      |
+| CHASE        |
+| CHASE        |
+| CLOSE        |
+| COSTNER      |
+| CRAWFORD     |
+| CRAWFORD     |
+| CRONYN       |
+| CRONYN       |
+| CROWE        |
+| CRUISE       |
+| CRUZ         |
+| DAMON        |
+| DAVIS        |
+| DAVIS        |
+| DAVIS        |
+| DAY-LEWIS    |
+| DEAN         |
+| DEAN         |
+| DEE          |
+| DEE          |
+| DEGENERES    |
+| DEGENERES    |
+| DEGENERES    |
+| DENCH        |
+| DENCH        |
+| DEPP         |
+| DEPP         |
+| DERN         |
+| DREYFUSS     |
+| DUKAKIS      |
+| DUKAKIS      |
+| DUNST        |
+| FAWCETT      |
+| FAWCETT      |
+| GABLE        |
+| GARLAND      |
+| GARLAND      |
+| GARLAND      |
+| GIBSON       |
+| GOLDBERG     |
+| GOODING      |
+| GOODING      |
+| GRANT        |
+| GUINESS      |
+| GUINESS      |
+| GUINESS      |
+| HACKMAN      |
+| HACKMAN      |
+| HARRIS       |
+| HARRIS       |
+| HARRIS       |
+| HAWKE        |
+| HESTON       |
+| HOFFMAN      |
+| HOFFMAN      |
+| HOFFMAN      |
+| HOPE         |
+| HOPKINS      |
+| HOPKINS      |
+| HOPKINS      |
+| HOPPER       |
+| HOPPER       |
+| HUDSON       |
+| HUNT         |
+| HURT         |
+| JACKMAN      |
+| JACKMAN      |
+| JOHANSSON    |
+| JOHANSSON    |
+| JOHANSSON    |
+| JOLIE        |
+| JOVOVICH     |
+| KEITEL       |
+| KEITEL       |
+| KEITEL       |
+| KILMER       |
+| KILMER       |
+| KILMER       |
+| KILMER       |
+| KILMER       |
+| LEIGH        |
+| LOLLOBRIGIDA |
+| MALDEN       |
+| MANSFIELD    |
+| MARX         |
+| MCCONAUGHEY  |
+| MCCONAUGHEY  |
+| MCDORMAND    |
+| MCKELLEN     |
+| MCKELLEN     |
+| MCQUEEN      |
+| MCQUEEN      |
+| MIRANDA      |
+| MONROE       |
+| MONROE       |
+| MOSTEL       |
+| MOSTEL       |
+| NEESON       |
+| NEESON       |
+| NICHOLSON    |
+| NOLTE        |
+| NOLTE        |
+| NOLTE        |
+| NOLTE        |
+| OLIVIER      |
+| OLIVIER      |
+| PALTROW      |
+| PALTROW      |
+| PECK         |
+| PECK         |
+| PECK         |
+| PENN         |
+| PENN         |
+| PESCI        |
+| PFEIFFER     |
+| PHOENIX      |
+| PINKETT      |
+| PITT         |
+| POSEY        |
+| PRESLEY      |
+| REYNOLDS     |
+| RYDER        |
+| SILVERSTONE  |
+| SILVERSTONE  |
+| SINATRA      |
+| SOBIESKI     |
+| STALLONE     |
+| STREEP       |
+| STREEP       |
+| SUVARI       |
+| SWANK        |
+| TANDY        |
+| TANDY        |
+| TAUTOU       |
+| TEMPLE       |
+| TEMPLE       |
+| TEMPLE       |
+| TEMPLE       |
+| TOMEI        |
+| TORN         |
+| TORN         |
+| TORN         |
+| TRACY        |
+| TRACY        |
+| VOIGHT       |
+| WAHLBERG     |
+| WAHLBERG     |
+| WALKEN       |
+| WAYNE        |
+| WEST         |
+| WEST         |
+| WILLIAMS     |
+| WILLIAMS     |
+| WILLIAMS     |
+| WILLIS       |
+| WILLIS       |
+| WILLIS       |
+| WILSON       |
+| WINSLET      |
+| WINSLET      |
+| WITHERSPOON  |
+| WOOD         |
+| WOOD         |
+| WRAY         |
+| ZELLWEGER    |
+| ZELLWEGER    |
+| ZELLWEGER    |
++--------------+
+200 rows in set (0.0029 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > select distinct last_name from actor;
++--------------+
+| last_name    |
++--------------+
+| AKROYD       |
+| ALLEN        |
+| ASTAIRE      |
+| BACALL       |
+| BAILEY       |
+| BALE         |
+| BALL         |
+| BARRYMORE    |
+| BASINGER     |
+| BENING       |
+| BERGEN       |
+| BERGMAN      |
+| BERRY        |
+| BIRCH        |
+| BLOOM        |
+| BOLGER       |
+| BRIDGES      |
+| BRODY        |
+| BULLOCK      |
+| CAGE         |
+| CARREY       |
+| CHAPLIN      |
+| CHASE        |
+| CLOSE        |
+| COSTNER      |
+| CRAWFORD     |
+| CRONYN       |
+| CROWE        |
+| CRUISE       |
+| CRUZ         |
+| DAMON        |
+| DAVIS        |
+| DAY-LEWIS    |
+| DEAN         |
+| DEE          |
+| DEGENERES    |
+| DENCH        |
+| DEPP         |
+| DERN         |
+| DREYFUSS     |
+| DUKAKIS      |
+| DUNST        |
+| FAWCETT      |
+| GABLE        |
+| GARLAND      |
+| GIBSON       |
+| GOLDBERG     |
+| GOODING      |
+| GRANT        |
+| GUINESS      |
+| HACKMAN      |
+| HARRIS       |
+| HAWKE        |
+| HESTON       |
+| HOFFMAN      |
+| HOPE         |
+| HOPKINS      |
+| HOPPER       |
+| HUDSON       |
+| HUNT         |
+| HURT         |
+| JACKMAN      |
+| JOHANSSON    |
+| JOLIE        |
+| JOVOVICH     |
+| KEITEL       |
+| KILMER       |
+| LEIGH        |
+| LOLLOBRIGIDA |
+| MALDEN       |
+| MANSFIELD    |
+| MARX         |
+| MCCONAUGHEY  |
+| MCDORMAND    |
+| MCKELLEN     |
+| MCQUEEN      |
+| MIRANDA      |
+| MONROE       |
+| MOSTEL       |
+| NEESON       |
+| NICHOLSON    |
+| NOLTE        |
+| OLIVIER      |
+| PALTROW      |
+| PECK         |
+| PENN         |
+| PESCI        |
+| PFEIFFER     |
+| PHOENIX      |
+| PINKETT      |
+| PITT         |
+| POSEY        |
+| PRESLEY      |
+| REYNOLDS     |
+| RYDER        |
+| SILVERSTONE  |
+| SINATRA      |
+| SOBIESKI     |
+| STALLONE     |
+| STREEP       |
+| SUVARI       |
+| SWANK        |
+| TANDY        |
+| TAUTOU       |
+| TEMPLE       |
+| TOMEI        |
+| TORN         |
+| TRACY        |
+| VOIGHT       |
+| WAHLBERG     |
+| WALKEN       |
+| WAYNE        |
+| WEST         |
+| WILLIAMS     |
+| WILLIS       |
+| WILSON       |
+| WINSLET      |
+| WITHERSPOON  |
+| WOOD         |
+| WRAY         |
+| ZELLWEGER    |
++--------------+
+121 rows in set (0.0048 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > ^C
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from actor where actor_id = 200;
++----------+------------+-----------+---------------------+
+| actor_id | first_name | last_name | last_update         |
++----------+------------+-----------+---------------------+
+|      200 | THORA      | TEMPLE    | 2006-02-15 04:34:33 |
++----------+------------+-----------+---------------------+
+1 row in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from actor where last_name = "NOLTE";
++----------+------------+-----------+---------------------+
+| actor_id | first_name | last_name | last_update         |
++----------+------------+-----------+---------------------+
+|      108 | WARREN     | NOLTE     | 2006-02-15 04:34:33 |
+|      122 | SALMA      | NOLTE     | 2006-02-15 04:34:33 |
+|      125 | ALBERT     | NOLTE     | 2006-02-15 04:34:33 |
+|      150 | JAYNE      | NOLTE     | 2006-02-15 04:34:33 |
++----------+------------+-----------+---------------------+
+4 rows in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from actor where last_name = "NOLTE" or last_name = "KEITEL";
++----------+------------+-----------+---------------------+
+| actor_id | first_name | last_name | last_update         |
++----------+------------+-----------+---------------------+
+|       74 | MILLA      | KEITEL    | 2006-02-15 04:34:33 |
+|      130 | GRETA      | KEITEL    | 2006-02-15 04:34:33 |
+|      198 | MARY       | KEITEL    | 2006-02-15 04:34:33 |
+|      108 | WARREN     | NOLTE     | 2006-02-15 04:34:33 |
+|      122 | SALMA      | NOLTE     | 2006-02-15 04:34:33 |
+|      125 | ALBERT     | NOLTE     | 2006-02-15 04:34:33 |
+|      150 | JAYNE      | NOLTE     | 2006-02-15 04:34:33 |
++----------+------------+-----------+---------------------+
+7 rows in set (0.0028 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > order by last_name, first_name;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order by last_name, first_name' at line 1
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from actor where last_name = "NOLTE" or last_name = "KEITEL";
++----------+------------+-----------+---------------------+
+| actor_id | first_name | last_name | last_update         |
++----------+------------+-----------+---------------------+
+|       74 | MILLA      | KEITEL    | 2006-02-15 04:34:33 |
+|      130 | GRETA      | KEITEL    | 2006-02-15 04:34:33 |
+|      198 | MARY       | KEITEL    | 2006-02-15 04:34:33 |
+|      108 | WARREN     | NOLTE     | 2006-02-15 04:34:33 |
+|      122 | SALMA      | NOLTE     | 2006-02-15 04:34:33 |
+|      125 | ALBERT     | NOLTE     | 2006-02-15 04:34:33 |
+|      150 | JAYNE      | NOLTE     | 2006-02-15 04:34:33 |
++----------+------------+-----------+---------------------+
+7 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from actor where last_name = "NOLTE" or last_name = "KEITEL"
+                                       -> order by last_name, first_name;
++----------+------------+-----------+---------------------+
+| actor_id | first_name | last_name | last_update         |
++----------+------------+-----------+---------------------+
+|      130 | GRETA      | KEITEL    | 2006-02-15 04:34:33 |
+|      198 | MARY       | KEITEL    | 2006-02-15 04:34:33 |
+|       74 | MILLA      | KEITEL    | 2006-02-15 04:34:33 |
+|      125 | ALBERT     | NOLTE     | 2006-02-15 04:34:33 |
+|      150 | JAYNE      | NOLTE     | 2006-02-15 04:34:33 |
+|      122 | SALMA      | NOLTE     | 2006-02-15 04:34:33 |
+|      108 | WARREN     | NOLTE     | 2006-02-15 04:34:33 |
++----------+------------+-----------+---------------------+
+7 rows in set (0.0010 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL >
